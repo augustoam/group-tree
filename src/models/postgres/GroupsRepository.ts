@@ -8,6 +8,7 @@ import { LoggerFactory } from "../../context/components/LoggerFactory";
 import { EditGroupArgs } from "../../graphQL/args/groups/EditGroupArgs";
 import { FindOptions, WhereOptions } from "sequelize/types/model";
 import { Op, Transaction } from "sequelize";
+import { Errors } from "../Errors";
 
 @ProvideAsSingleton(GroupsRepository)
 export class GroupsRepository extends BaseRepository<GroupModel>{
@@ -82,6 +83,11 @@ export class GroupsRepository extends BaseRepository<GroupModel>{
                 let path: string = latestGroupRoot ? (parseInt(latestGroupRoot.path) + 1).toString() : '1';
                 if (!!createGroupArgs.parentId) {
                     let parent: GroupModel = await this.model.findByPk(createGroupArgs.parentId, { transaction });
+
+                    if (!parent) {
+                        throw new Error(Errors.GROUP_NOT_FOUND);
+                    }
+
                     let siblings: GroupModel[] = await parent.getChildren(null, transaction);
                     path = `${parent.path}.${(siblings && siblings.length) ? parseInt(siblings[siblings.length - 1].path.replace(/.*\.(\d*)$/gm, '$1')) + 1 : 1}`;
                 }

@@ -11,6 +11,8 @@ import { CreateGroupArgs } from '../args/groups/CreateGroupArgs';
 import { VoidResponse } from '../responses/common/VoidResponse';
 import { GroupsService } from '../../services/GroupsService';
 import { GroupsBaseResolver } from "./GroupsBaseResolver";
+import { EditGroupArgs } from '../args/groups/EditGroupArgs';
+import { GroupModel } from '../../models/postgres/po/GroupModel';
 
 @ObjectType()
 class GroupResponse extends EntityResponseFn(Group) { }
@@ -38,7 +40,8 @@ export class GroupsResolver extends GroupsBaseResolver {
         @Arg('flat', { defaultValue: false }) flat: boolean,
         @Arg('search', { nullable: true }) search: string) {
 
-        return await this.groupsService.getGroups(page, pageSize, flat, search);
+        const groups = await this.groupsService.getGroups(page, pageSize, flat, search);
+        return ResponseMapper.pageResponse<GroupModel>(page, pageSize, groups.items, groups.totalCount)
     }
 
     @FieldResolver(returns => [GroupBase])
@@ -56,7 +59,13 @@ export class GroupsResolver extends GroupsBaseResolver {
     @Mutation(returns => GroupResponse)
     public async createGroup(@Ctx() request: Request,
         @Args({ validate: true }) createGroupArgs: CreateGroupArgs) {
-        return await this.groupsService.createGroup(createGroupArgs);
+        return ResponseMapper.entityResponse<GroupModel>(await this.groupsService.createGroup(createGroupArgs));
+    }
+
+    @Mutation(returns => GroupResponse)
+    public async editGroup(@Ctx() request: Request,
+        @Args({ validate: true }) editGroupArgs: EditGroupArgs) {
+        return ResponseMapper.entityResponse<GroupModel>(await this.groupsService.editGroup(editGroupArgs));
     }
 
     @Mutation(returns => VoidResponse)
