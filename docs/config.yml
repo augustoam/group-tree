@@ -1,0 +1,21 @@
+introspection: http://localhost:4000
+servers:
+  - url: http://localhost:4000
+    description: Group Tree API
+info:
+  description: |
+    Welcome to the Group Tree API reference. 
+
+    GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
+  version: 1.0.0
+  title: Group Tree API
+  contact:
+    email: augusto.albertoni@gmail.com
+domains:
+  - name: Groups
+    description: List of group methods.
+    usecases:
+     - name: Groups
+       description: Query to retrive a list of groups. 
+       query: query.groups
+       expand: item

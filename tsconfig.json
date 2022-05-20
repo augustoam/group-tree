@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "target": "ES2018",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noUnusedLocals": true,
+    "types": [
+      "reflect-metadata"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
+    "lib": [
+      "ES2018",
+      "esnext.asynciterable"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}

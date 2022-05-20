@@ -1,0 +1,45 @@
+{
+  "name": "group_tree",
+  "version": "0.0.1",
+  "description": "Group tree",
+  "repository": "https://github.com/augustoam/group-tree",
+  "scripts": {
+    "compile": "tsc",
+    "start": "node build/index.js"
+  },
+  "author": "Augusto Pedrollo Albertoni",
+  "license": "MIT",
+  "dependencies": {
+    "@type-cacheable/core": "^8.0.5",
+    "@type-cacheable/ioredis-adapter": "^9.1.0",
+    "class-validator": "^0.13.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "express-winston": "^4.2.0",
+    "got": "^10.6.0",
+    "graphql": "^15.5.0",
+    "graphql-playground-middleware-express": "^1.7.18",
+    "helmet": "^3.21.2",
+    "inversify": "3.1.0",
+    "inversify-binding-decorators": "3.1.0",
+    "ioredis": "^4.27.0",
+    "pg": "^8.7.3",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.19.2",
+    "sequelize-typescript": "^2.1.3",
+    "type-graphql": "^1.1.0",
+    "umzug": "^2.3.0",
+    "winston": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/got": "^9.6.9",
+    "@types/node": "^16.9.1",
+    "@types/pg": "^8.6.5",
+    "@types/sequelize": "^4.28.13",
+    "typescript": "^4.4.2"
+  }
+}

@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+  ####### DATABASES ######
+  mongo:
+    image: mongo:latest
+    volumes:
+      - ./database/mongo/db:/data/db
+      - ./database/mongo/configdb:/data/configdb
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+
+  redis:
+    image: bitnami/redis:4.0.11
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    volumes:
+      - ./database/redis/bitnami/redis/data
+    ports:
+      - "6379:6379"
+  
+  who-sings-game-api:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      LOG_LEVEL: debug
+      LOG_PATH: ./logs
+      NODE_ENV: ${NODE_ENV}
+      HTTP_PORT: ${HTTP_PORT}
+      CORS_WHITELIST: ${CORS_WHITELIST}
+      MONGODB_ADDRESS: ${MONGODB_ADDRESS}
+      MONGODB_DATABASE: ${MONGODB_DATABASE}
+      NOSQL_USERNAME: ${NOSQL_USERNAME}
+      NOSQL_PASSWORD: ${NOSQL_PASSWORD}
+      REDIS_ADDRESS: ${REDIS_ADDRESS}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    restart: unless-stopped
